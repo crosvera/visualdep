@@ -1,0 +1,47 @@
+$def with(content)
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>$content.title :: VisualDEP - Visualization of Diferences in Electrostatics Potentials</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="generator" content="vim">
+<link href="/static/style/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src='/static/style/jquery.min.js'></script> 
+<script type="text/javascript" src='/static/style/jquery.cycle.all.latest.js'></script> 
+<script type="text/javascript" src='/static/style/scripts.js'></script> 
+</head>
+
+<body>
+<div id="container">
+    <div id="header_mini">
+        <a href="http://www.udec.cl/">University of Concepción</a> &nbsp;/&nbsp;
+        <a href="/es">LBFM</a> &nbsp;/&nbsp;
+        <a href="/news">Send Feedback</a> &nbsp;/&nbsp;
+        Contact Us
+    </div>
+    <div id="header">
+        <IMG src="/static/style/img/header.png" width="900" height="115" alt="VisualDEP" title="LBFM - Laboratorio de Biofísica Molecular">
+    </div>
+    <div id="menu">
+        <a href="/">HOME</a> &nbsp;&nbsp;
+        WHAT IS VISUALDEP?&nbsp;&nbsp;
+        <a href="/upload">UPLOAD STRUCTURES</a>&nbsp;&nbsp;
+        <a href="/projects">CITING VISUALDEP</a>&nbsp;&nbsp;
+        <a href="/news">NEWS</a>&nbsp;&nbsp;
+    </div>
+    <div id="bimages">
+        <img src="/static/style/img/1.png" alt="img1">
+    </div>
+    <div id="cwrapper"><br />
+    <div id="beta">
+            <p><strong>Remember, this is a beta version of this server, feedback is welcome.</strong></p>
+        </div>
+
+        <div id="content">
+            $:content
+        </div>
+    </div>
+    <div id="footer"><p>Here it goes the footer</p></div>
+</div>
+</body>
+</html>

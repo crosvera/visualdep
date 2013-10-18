@@ -1,0 +1,253 @@
+$def with(msg, files=None, jobid=None, atoms=[], maxv=None)
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Results :: VisualDEP - Visualization of Diferences in Electrostatics Potentials</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="generator" content="HAPedit 3.1">
+<link href="/static/style/style.css" rel="stylesheet" type="text/css" >
+<script type="text/javascript" src='/static/style/jquery.min.js'></script> 
+<script type="text/javascript" src='/static/style/jquery.cycle.all.latest.js'></script> 
+<script type="text/javascript" src='/static/style/scripts.js'></script> 
+<script type="text/javascript">
+function spin(){
+    document.jmol.script('spin on;');
+}
+
+function spinoff(){
+    document.jmol.script('spin off;');
+}
+
+function zoom_in(atom){
+    document.jmol.script('centre atomno='+ atom +'; zoom 700;');
+}
+
+function reset_all(){
+    document.jmol.script("select all; centre; zoom 100; cartoon off; wireframe off; spacefill off; spin off; color cpk; wireframe on; spacefill 30; set propertyColorScheme 'high'; color property partialCharge;");
+}
+
+function highlight_outliers(){
+    $for a in atoms:
+        document.jmol.script('select resno=$a.getResnum(); wireframe 70; spacefill 100;');
+}
+
+function cartoon(){
+    document.jmol.script('select all; wireframe off; spacefill off; cartoon on;');
+}
+
+function cartoon_off(){
+    document.jmol.script('select all; cartoon off;');
+    reset_all();
+}
+
+function atom_label(cb_object, atom_id){
+    if (cb_object.checked == true)
+        document.jmol.script('select atomindex=' + atom_id + '; label; color label red;')
+    else
+        document.jmol.script('select atomindex=' + atom_id + '; label off;')
+}
+
+function highlight(percentage){
+    reset_all();
+    $if files:
+        var v = $maxv * (100-percentage) /100;
+        document.jmol.script("select partialCharge >= "+ v +"; wireframe 70; spacefill 100;");
+}
+
+function spoiler(a_element, div_id){
+    a = document.getElementById(a_element);
+    d = document.getElementById(div_id);
+
+    if (d.style.display != "none"){
+        a.textContent = "Show [+]";
+        d.style.display = "none";
+    }else{
+        a.textContent = "Hide [-]";
+        d.style.display = "";
+    }
+}
+
+
+</script>
+
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-30077736-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+
+</head>
+
+<body>
+<div id="container">
+    <div id="header_mini">
+        <a href="http://www.udec.cl/">University of Concepción</a> &nbsp;/&nbsp;
+        <a href="http://lbfm.udec.cl/">LBFM</a> &nbsp;/&nbsp;
+        <a href="#">Send Feedback</a> &nbsp;/&nbsp;
+        Contact Us
+    </div>
+    <div id="header">
+        <IMG src="/static/style/img/header.png" width="900" height="115" alt="LBFM" title="LBFM - Laboratorio de Biofísica Molecular">
+    </div>
+    <div id="menu">
+        <a href="/">HOME</a> &nbsp;&nbsp;
+        <a href="/whatis">WHAT IS VISUALDEP?</a>&nbsp;&nbsp;
+        <a href="#">CITING VISUALDEP</a>&nbsp;&nbsp;
+    </div>
+    <div id="bimages">
+        <img src="/static/style/img/1.png" alt="img1">
+    </div>
+    $if not files and msg:
+        <div id="cwraper">
+            <div id="beta">
+                <p><strong>Remember, this is a beta version of this server, feedback is welcome.</strong></p>
+            </div>
+            <div id="content">
+                <h1 class="ttl">Retrieving Results</h1>
+                <br />
+                <div class="warnbox" style="width:70%;">
+                    <p class="textbox">$:msg</p>
+                    <p class="textbox">This page will refresh every 30 seconds.</p>
+                </div>
+                <script>
+                    setTimeout("location.reload(true);", 30000);
+                </script>
+
+            </div>
+        </div>
+    $else:
+        <div id="wrapper"><br />
+            <div id="beta">
+                <p><strong>Remember, this is a beta version of this server, feedback is welcome.</strong></p>
+            </div>
+            <div id="bar2">
+                <h1 class="ttl">Visualization Options</h1>
+                <p><br />
+                <strong><a href="javascript:highlight_outliers()" >Highlight outlier's residues</a></strong> &nbsp; | &nbsp;
+                <a href="javascript:cartoon()" >Cartoon On</a> <a href="javascript:cartoon_off()" >Off</a>&nbsp; | &nbsp;
+                <a href="javascript:spin()" >Spin On</a> <a href="javascript:spinoff()" >Off</a>&nbsp; | &nbsp;
+                <a href="javascript:reset_all()" >Reset all</a> 
+                <br /><br />
+                <strong>Show atoms of greater changes:</strong><br />
+                <a href="javascript:highlight(20)" title="Show the 20% most changed" >20%</a> &nbsp; | &nbsp;
+                <a href="javascript:highlight(40)" title="Show the 40% most changed" >40%</a> &nbsp; | &nbsp;
+                <a href="javascript:highlight(60)" title="Show the 60% most changed" >60%</a> &nbsp; | &nbsp;
+                <a href="javascript:highlight(80)" title="Show the 80% most changed" >80%</a> &nbsp;
+                <span id="loadingp" style="display:none"><img src="/static/style/img/loading.gif"></span>
+                </p>
+                
+                <h1 class="ttl">Most relevant atoms</h1>
+                <p>
+                    The next table shows the most relevant atoms, those with a greater difference in electrostatic potential.<br />
+                </p>
+                <div style="width:400px;">
+                <table id="header">
+                <tr>
+                <th>Atom<br />Number</th>
+                <th>Atom</th>
+                <th>Residue</th>
+                <th>Chain</th>
+                <th>Residue<br />Number</th>
+                <th>Difference<br />in EP</th>
+                <th>Label</th>
+                <th width=10>&nbsp;</th>
+                </tr>
+                </table>
+                </div>
+                <div style="overflow: auto; width:485px;height: 250px;">
+                <table>
+                <col width=56> <col width=39> <col width=58> <col width=44> <col width=58> <col width=73> <col width=41>
+                $for a in atoms:
+                    <tr>
+                    <td><a href="javascript:zoom_in($a.getSerial())" title="Zoom">$a.getSerial()</a></td>
+                    <td>$a.getName()</td>
+                    <td>$a.getResname()</td>
+                    <td>$a.getChid()</td>
+                    <td>$a.getResnum()</td>
+                    <td>$a.getCharge()</td>
+                    <td><input type="checkbox" style="width:20px;" onclick="atom_label(this, $a.getSerial())"/></td>
+                    </tr>
+    
+                </table>
+                $if len(atoms) == 0:
+                    <strong>It hasn't been possible to detect the most relevant atoms.</strong>
+                </div>
+                <br />
+                <br />
+            </div> 
+        </div>
+        <div id="bar1">
+            <h1 class="ttl">Visualization</h1>
+            <applet name="jmol" code="JmolApplet" archive="JmolApplet.jar" codebase="/static/jmol/"
+                width="425" height="425" mayscript="true">
+                <param name="bgcolor" value="white"/>
+                <param name="progressbar" value="true"/>
+                <param name="script" value="$:files['script']"/>
+            </applet>
+            <br />
+            <img src="/static/style/img/gradiente.png" /><br />
+            <p>
+            <strong>AND Value: $:files['andvalue']</strong><br />
+    
+            Now you are visualizing the protein structure (the static one). The following structure has been painted using the colour gradient showed above. Yellow represents sections where noone (or lesser) differences in electrostatic potentials occurs, meanwhile blue represents the sections where greatest differences in electrostatic potentials occurs.<br />
+            <br />
+            For further information about this visualization, please refer to the <a href="/whatis">What is VisualDEP?</a> section.<br />
+            </p>
+                <h1 class="ttl">List of files for download:</h1>
+                <p style="margin-top: -15px; margin-left:380px;"><a id="dd" href="javascript:spoiler('dd', 'downloads')">Show [+]</a></p>
+                <div id="downloads">
+                <p>
+                <strong>Uploaded files:</strong><br/>
+                Static Structure: <a href="/jobs/$files['pdb1'].split('jobs/')[-1]">$files['pdb1'].split("/")[-1]</a><br/>
+                Mobile Structure: <a href="/jobs/$files['pdb2'].split('jobs/')[-1]">$files['pdb2'].split("/")[-1]</a><br/>
+                <strong>Aligned structures:</strong><br />
+                Aligned Static Structure: <a href="/jobs/$files['spdb'].split('jobs/')[-1]">$files['spdb'].split("/")[-1]</a><br/>
+                Aligned Mobile Structure: <a href="/jobs/$files['mpdb'].split('jobs/')[-1]">$files['mpdb'].split("/")[-1]</a><br/>
+                <strong>PQR files:</strong><br/>
+                PQR file from Static Structure: <a href="/jobs/$files['spqr'].split('jobs/')[-1]">$files['spqr'].split("/")[-1]</a><br/>
+                PQR file from Mobile Structure: <a href="/jobs/$files['mpqr'].split('jobs/')[-1]">$files['mpqr'].split("/")[-1]</a><br/>
+                PDB2PQR Log file: <a href="/jobs/$files['pqrlog'].split('jobs/')[-1]">$files['pqrlog'].split("/")[-1]</a><br/>
+                <strong>DX files:</strong><br />
+                DX file from Static Structure: <a href="/jobs/$files['dxsfile'].split('jobs/')[-1]">$files['dxsfile'].split("/")[-1]</a><br/>
+                DX file from Mobile Structure: <a href="/jobs/$files['dxmfile'].split('jobs/')[-1]">$files['dxmfile'].split("/")[-1]</a><br/>
+                APBS Log file: <a href="/jobs/$files['apbslog'].split('jobs/')[-1]">$files['apbslog'].split("/")[-1]</a><br/>
+                <strong style="text-transform:none;">&#916;DX file:</strong><br />
+                &#916;between static and mobile dx file: <a href="/jobs/$files['ddx'].split('jobs/')[-1]">$files['ddx'].split("/")[-1]</a><br/>
+                <strong>Normalized difference</strong><br />
+                Normalized &#916; between static and mobile dx file: <a href="/jobs/$files['andfile'].split('jobs/')[-1]">$files['andfile'].split("/")[-1]</a><br/>
+                Static Structure with normalized difference: <a href="/jobs/$files['andpdb'].split('jobs/')[-1]">$files['andpdb'].split("/")[-1]</a><br/>
+                <strong>Structure Visualized:</strong><br />
+                Static Structure with &#916; electrostatic potentials: <a href="/jobs/$files['deltapqr'].split('jobs/')[-1]">$files['deltapqr'].split("/")[-1]</a><br />
+                Static Structure with &#916; electrostatic potentials: <a href="/jobs/$files['deltapdb'].split('jobs/')[-1]">$files['deltapdb'].split("/")[-1]</a><br />
+                </p>
+                </div>
+                <script type="text/javascript">
+                    document.getElementById('downloads').style.display = "none";
+                </script>
+    
+    
+    
+        </div>
+    <div id="footer">
+        <a href="http://www.csbiol.udec.cl/"><img src="/static/style/img/facultad.jpg" title="Facultad de Ciencias Biológicas" width="200" height="130" /></a>
+        <a href="http://www.udec.cl/"><img src="/static/style/img/udec.png" title="Universidad de Concepción" width="100" height="130" /></a>
+    </div>
+    <div id="powered" style="margin-top:2px;text-align:center;">
+        <a href="http://www.nginx.org/"><img src="/static/style/img/nginx.png" title="Powered by Ngninx" /></a>
+        <a href="http://www.webpy.org/"><img src="/static/style/img/webpy.png" title="Powered by WebPy" /></a>
+        <a href="http://www.biopython.org/"><img src="/static/style/img/biopython.png" title="Powered by BioPython" /></a>
+        <a href="http://jmol.sourceforge.net/"><img src="/static/style/img/jmol.png" title="Powered by Jmol" /></a>
+        <a href="http://www.pymol.org/"><img src="/static/style/img/pymol.png" title="Powered by PyMOL" /></a>
+    </div>
+</div>
+<br />
+</body>
+</html>

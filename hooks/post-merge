@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+# This hooks script is called after a successful merge call
+echo "-- ATTEMTING RUN POST-MERGE HOOK --"
+
+gcc src/scripts/pqr2csv.c -o src/scripts/pqr2csv
+chmod +x src/index.py src/Manage.py src/scripts/pqr2csv configs/visualdepd
+

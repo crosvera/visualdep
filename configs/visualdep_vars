@@ -1,0 +1,6 @@
+#!/bin/sh
+
+export HOME=/var/www
+export MPLCONFIGDIR=/tmp/
+export PYTHONPATH="/home/lbfm/shared/lib/python2.6/site-packages:/home/lbfm/shared/modlib:/home/lbfm/shared/lib/x86_64-intel8/python2.5"
+

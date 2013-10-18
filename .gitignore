@@ -1,0 +1,9 @@
+*.pyc
+*~
+*.swp
+*.swo
+jobs/
+jobs/*
+sandbox/
+sandbox/*
+hooks/*.sample

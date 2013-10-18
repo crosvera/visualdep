@@ -1,0 +1,105 @@
+$def with( msg=False , ok=False , rmsg=None)
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>VisualDEP - Visualization of Diferences in Electrostatics Potentials</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="generator" content="HAPedit 3.1">
+<link href="/static/style/style.css" rel="stylesheet" type="text/css" >
+<script type="text/javascript" src='/static/style/jquery.min.js'></script> 
+<script type="text/javascript" src='/static/style/jquery.cycle.all.latest.js'></script> 
+<script type="text/javascript" src='/static/style/scripts.js'></script> 
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-30077736-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+
+</head>
+
+<body>
+<div id="box"></div>
+<div id="container">
+    <div id="header_mini">
+        <a href="http://www.udec.cl/">University of Concepción</a> &nbsp;/&nbsp;
+        <a href="http://lbfm.udec.cl/">LBFM</a> &nbsp;/&nbsp;
+        <a href="#">Send Feedback</a> &nbsp;/&nbsp;
+        Contact Us
+    </div>
+    <div id="header">
+        <IMG src="/static/style/img/header.png" width="900" height="115" alt="LBFM" title="LBFM - Laboratorio de Biofísica Molecular">
+    </div>
+    <div id="menu">
+        <a href="/">HOME</a> &nbsp;&nbsp;
+        <a href="/whatis">WHAT IS VISUALDEP?</a>&nbsp;&nbsp;
+        <a href="#">CITING VISUALDEP</a>&nbsp;&nbsp;
+    </div>
+    <div id="bimages">
+        <img src="/static/style/img/1.png" alt="VisualDEP">
+    </div>
+    <div id="wrapper"><br />
+        <div id="beta">
+            <p><strong>Remember, this is a beta version of this server, feedback is welcome.</strong></p>
+        </div>
+        <div id="bar2">
+            $if msg is not None:
+                <h4 style="color:red;">$msg</h4>
+
+            $if rmsg is not None:
+                <div class="warnbox">
+                <p class="textbox">$rmsg</p>
+                </div>
+
+            $if ok:
+                <div class="okbox">
+                <p class="textbox">The structures were uploaded successfully. Click <a href="http://visualdep.lbfm.udec.cl/results/$ok">here</a> to watch the results.</p>
+                </div>
+
+            <h1 class="ttl">Upload Structures</h1>
+            <p>Upload two <a href="http://www.pdb.org">pdb</a> files to calculate and visualizate the differences in electrostatic potetials.</p>
+            <div id="upload">
+            <form method="POST" enctype="multipart/form-data" action="/" onSubmit="grayOut(true, '', 'Y')">
+                <p><strong>Static PDB file: </strong><br />
+                    <input type="file" id="pdb1" name="pdb1"/><br /><br />
+                <strong>Mobile PDB file: </strong><br />
+                    <input type="file" id="pdb2" name="pdb2"/><br /><br />
+                <button type="submit" id="upload" name="upload" >Upload &amp; Calculate</button>
+                </p>
+            </form>
+            </div>
+ 
+        <br />
+        <br />
+        </div> 
+    </div>
+    <div id="bar1">
+        <h1 class="ttl">Welcome to VisualDEP</h1>
+        <p>
+        <strong>VisualDEP</strong> stand by <em>Visualization of Differences in Electrostatic Potentials</em>.<br /><br />
+        <strong>VisualDEP</strong> is a web server dedicated to superimpose two structures, calculate the electrostatic potential with APBS of each structures, calculate the differences between the electrostatic potential, clustering the results and show the principal differences colored in the reference structure.<br /> <br />
+        For further information about <strong>VisualDEP</strong>, you can read the <a href="/whatis">What is VisualDEP?</a> section.
+        </p>
+    </div>
+    <div id="footer">
+        <a href="http://www.csbiol.udec.cl/"><img src="/static/style/img/facultad.jpg" title="Facultad de Ciencias Biológicas" width="200" height="130" /></a>
+        <a href="http://www.udec.cl/"><img src="/static/style/img/udec.png" title="Universidad de Concepción" width="100" height="130" /></a>
+    </div>
+    <div id="powered" style="margin-top:2px;text-align:center;">
+        <a href="http://www.nginx.org/"><img src="/static/style/img/nginx.png" title="Powered by Ngninx" /></a>
+        <a href="http://www.webpy.org/"><img src="/static/style/img/webpy.png" title="Powered by WebPy" /></a>
+        <a href="http://www.biopython.org/"><img src="/static/style/img/biopython.png" title="Powered by BioPython" /></a>
+        <a href="http://jmol.sourceforge.net/"><img src="/static/style/img/jmol.png" title="Powered by Jmol" /></a>
+        <a href="http://www.pymol.org/"><img src="/static/style/img/pymol.png" title="Powered by PyMOL" /></a>
+    </div>
+</div>
+<br />
+</body>
+</html>

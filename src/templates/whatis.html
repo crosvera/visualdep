@@ -1,0 +1,145 @@
+$def with()
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>What is VisualDEP? - VisualDEP - Visualization of Diferences in Electrostatics Potentials</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="generator" content="HAPedit 3.1">
+<link href="/static/style/style.css" rel="stylesheet" type="text/css" >
+<script type="text/javascript" src='/static/style/jquery.min.js'></script> 
+<script type="text/javascript" src='/static/style/jquery.cycle.all.latest.js'></script> 
+<script type="text/javascript" src='/static/style/scripts.js'></script> 
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-30077736-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+
+</head>
+
+<body>
+<div id="box"></div>
+<div id="container">
+    <div id="header_mini">
+        <a href="http://www.udec.cl/">University of Concepción</a> &nbsp;/&nbsp;
+        <a href="http://lbfm.udec.cl/">LBFM</a> &nbsp;/&nbsp;
+        <a href="#">Send Feedback</a> &nbsp;/&nbsp;
+        Contact Us
+    </div>
+    <div id="header">
+        <IMG src="/static/style/img/header.png" width="900" height="115" alt="LBFM" title="LBFM - Laboratorio de Biofísica Molecular">
+    </div>
+    <div id="menu">
+        <a href="/">HOME</a> &nbsp;&nbsp;
+        <a href="/whatis">WHAT IS VISUALDEP?</a>&nbsp;&nbsp;
+        <a href="#">CITING VISUALDEP</a>&nbsp;&nbsp;
+    </div>
+    <div id="bimages">
+        <img src="/static/style/img/1.png" alt="img1">
+    </div>
+    <div id="cwrapper"><br>
+        <div id="beta">
+            <p><strong>Remember, this is a beta version of this server, feedback is welcome.</strong></p>
+        </div>
+        <div id="content">
+        <h1 class="ttl">What is VisualDEP?</h1>
+        <img src="/static/whatis/workflow.png" title="VisualDEP Workflow" style="float:right;">
+        <p style="width:50%">
+        VisualDEP is webserver developed in the <a href="http://lbfm.udec.cl">Laboratorio de Biofísica Molecular</a>
+        of <a href="http://www.udec.cl">Universidad de Concepción</a>. VisualDEP aims to compare two highly similar 
+        proteins with respect to their electrostatic properties. This comparision is done
+        calculating the difference in electrostatic potential at atomic level of both proteins.
+        <br/>
+        well..
+
+        </p>
+        <h2 class="ttl">How it works?</h2>
+        <p>
+        VisualDEP bases its work on a workflow which is built of four major steps:
+        </p>
+        <ol>
+         <li>Retrieval &amp; alignment of the sructures</li>
+         <li>Calculation of electrostatic potentials</li>
+         <li>Calculation of differences in electrostatic potentials</li>
+         <li>Search and visualization of mayor differences in electrostatic potential</li>
+        </ol>
+        <p>
+        <strong class="sttl">Retrieval &amp; alignment of the structures</strong><br />
+        <img src="/static/whatis/upload.png" title="Upload form" style="float:left; border:1px solid gray;"><br/>
+        &nbsp;At this step, the systems asks to the user for two <a href="http://www.pdb.org">pdb</a> files
+        corresponding to two highly similar protein structures. Then VisualDEP proceeds to make a structural
+        alignment of the structures using <a href="http://www.pymol.org">PyMOL</a> in background. To proceed
+        to the next step, the RMSD resulting from the alignment must be lower or equal to 3&Aring;, otherwise
+        workflow aborts.<br/><br/><br/><br/><br/>
+        </p>
+        <p style="width:50%">
+        <strong class="sttl">Calculation of electrostatic potentials</strong><br />
+        Electrostatic potentials are calculated from both aligned structures, this is done using
+        <a href="http://www.poissonboltzmann.org/pdb2pqr">PDB2PQR</a> (with AMBER as force field)
+        to prepair the files, and <a href="http://www.poissonboltzmann.org/apbs">APBS</a> to calculate
+        the electrostatic potentials.
+        </p>
+        <p style="width:50%">
+        <strong class="sttl">Calculation of differences in electrostatic potentials</strong><br />
+        Using the electrostatic potentials from both structures, an absolute difference is calculated,
+        this is done subtracting each point from the resulting grid of each structure and the result
+        replace the corresponding potential value for each point in the grid. At the same time a
+        similarity analysis is done for the comparition as proposed 
+        <a href="http://onlinelibrary.wiley.com/doi/10.1002/btpr.541/citedby">here</a> using:<br/>
+        <img src="/static/whatis/andform.png" title="Similarity Analysis" style="border:1px solid gray; width:60%; height:60%;"><br/>
+        Where &phi;(i,j,k) is the electrostatic potential value at grid point (i,j,k) for structures a and b.
+        We provide this similarity index to the user as a general approach which can help to the user to find 
+        a useful conclusion in the comparison of both structures. <br/><br />
+        Using the APBS multivalue tool with the difference in electrostatic potential done before, the potential 
+        is calculated to each atom in the structure, and then the obtained values are assigned in the charge 
+        field in the pqr file resulting from the referenced pdb of the previous step.
+        </p>
+        <img src="/static/whatis/results.png" title="VisualDEP results" style="float:right; margin: 5px"><br/>
+        <p style="width:100%">
+        <strong class="sttl">Search and visualization of mayor differences in <br/>electrostatic potential</strong><br />
+        A <a href="http://jmol.sourceforge.net/">Jmol</a> applet is used to visualizate the difference in the 
+        reference structure, using a color gradient scheme to represent the grade of difference, with the 
+        possibility to highlight the 20% to 80% atoms with greater changes.<br/><br/>
+        Using an outlier detection technique, we aim to find those values that represents highest differences
+        in electrostatic potential, these values are presented on a table with the possibility to highlight, label
+        and center the visualization in each of the outliers.
+        </p>
+        <h2 class="ttl">Input</h2>
+        <p style="width:50%">
+        The server require the user provide for two pdb files which represents the structures to compare, 
+        also an e-mail address is required to alert about the status of the job.
+        </p>
+        <h2 class="ttl">Output</h2>
+        <p style="width:50%">
+        A Jmol applet is used to visualize the electrostatic differences from a modified pqr file 
+        (from the first structure provided) where the charge field from each atom is replaced by 
+        the corresponding value, allowing a friendly visual interpretation. Also, the user 
+        can retrieve all resulting files from each workflow step, as well a modified pdb file where 
+        the B-factor field from each atom is replaced by the corresponding electrostatic potential differences. 
+        And a <a href="http://www.poissonboltzmann.org/file-formats/mesh-and-data-formats/opendx-scalar-data">dx file</a>
+        corresponding to the grid of the difference in electrostatic potential calculated.
+        </p>
+    </div>
+    <div id="footer">
+        <a href="http://www.csbiol.udec.cl/"><img src="/static/style/img/facultad.jpg" title="Facultad de Ciencias Biológicas" width="200" height="130" /></a>
+        <a href="http://www.udec.cl/"><img src="/static/style/img/udec.png" title="Universidad de Concepción" width="100" height="130" /></a>
+    </div>
+    <div id="powered" style="margin-top:2px;text-align:center;">
+        <a href="http://www.nginx.org/"><img src="/static/style/img/nginx.png" title="Powered by Ngninx" /></a>
+        <a href="http://www.webpy.org/"><img src="/static/style/img/webpy.png" title="Powered by WebPy" /></a>
+        <a href="http://www.biopython.org/"><img src="/static/style/img/biopython.png" title="Powered by BioPython" /></a>
+        <a href="http://jmol.sourceforge.net/"><img src="/static/style/img/jmol.png" title="Powered by Jmol" /></a>
+        <a href="http://www.pymol.org/"><img src="/static/style/img/pymol.png" title="Powered by PyMOL" /></a>
+    </div>
+</div>
+<br />
+</body>
+</html>
