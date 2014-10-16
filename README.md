@@ -12,8 +12,8 @@ average normalized difference (AND) global value.
 
 
 ### AUTHORS
-José Martínez-Oyanedel <jmartine@udec.cl>
-Natalia Jaña-Perez <njana@udec.cl>
-Carlos Ríos-Vera. <crosvera@gmail.com>
+ - José Martínez-Oyanedel <jmartine@udec.cl>
+ - Natalia Jaña-Perez <njana@udec.cl>
+ - Carlos Ríos-Vera. <crosvera@gmail.com>
 
 Copyright (C) 2009-2014 Laboratorio de Biofísica Molecular - Universidad de Concepción. Chile.
