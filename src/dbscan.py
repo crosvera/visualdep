@@ -182,23 +182,12 @@ function [D]=dist(i,x)
 
 
 if __name__ == "__main__":
-    import sys
     import pylab as P
     import scipy as S
-    from matplotlib.backends.backend_pdf import PdfPages
-    from Bio import PDB
-
-    struc = PDB.PDBParser().get_structure(sys.argv[1], sys.argv[1])
-    atoms = [a.bfactor for a in struc.get_atoms() if a.bfactor >= 0.0]
-    atoms.sort()
-    ids = range(len(atoms))
-    x = N.array(ids)
-    y = N.array(atoms)
-    #x1 = S.rand(30,2)*2
-    #x2 = (S.rand(40,2)*0.5+1)*4
-    #xy= N.concatenate((x1,x2))
-    #P.scatter(xy[:,0],xy[:,1], alpha =  0.5)
-    P.scatter(x,y, alpha =  0.5)
+    x1 = S.rand(30,2)*2
+    x2 = (S.rand(40,2)*0.5+1)*4
+    xy= N.concatenate((x1,x2))
+    P.scatter(xy[:,0],xy[:,1], alpha =  0.5)
 #    [class,type, Eps]=dbscan(x,5,[]);
 
 #    % x=[randn(30,2)*.4;randn(40,2)*.5+ones(40,1)*[4 4]];
@@ -221,23 +210,14 @@ if __name__ == "__main__":
 
 #    P.plot(xy[:,0],xy[:,1],'ro', alpha = 0.6)
 #    cClass, tType, Eps, boolAns = dbscan(xy[:,0:2], 1)
-    xy = N.column_stack((x,y))
+    xy = N.column_stack((xy[:,0],xy[:,1]))
     cClass, tType, Eps, boolAns = dbscan(xy, 5)
-    #cClass, tType, Eps, boolAns = dbscan(atoms, 5)
-    #print cClass
-    #print xy
     print cClass.max(), len(tType)
-    print [t for t in tType if t == -1]
     i = cClass.max()
     for m in xrange(int(i)+1):
-       ind = N.where(m == cClass)
-       temp = xy[ind]
-       P.plot(temp[:,0],temp[:,1],'s', alpha = 0.7, ms = 3)
+        ind = N.where(m == cClass)
+        temp = xy[ind]
+        P.plot(temp[:,0],temp[:,1],'s', alpha = 0.7, ms = 3)
 
 
-    #P.show()
-    P.savefig(sys.argv[1]+'.png', dpi=(10240/8))
-    P.close()
-    #pp = PdfPages('graph.pdf')
-    #pp.savefig()
-    #pp.close()
+    P.show()
