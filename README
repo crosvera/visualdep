@@ -1,27 +1,19 @@
-** VisualDEP - Visualization of Differences in Electrostatic Potentials
+## VisualDEP - Visualization of Differences in Electrostatic Potentials
 
-* What is VisualDEP?:
-VisualDEP is webserver developed in the Laboratorio de Biofísica Molecuar
-of Universidad de Concepción. VisualDEP aims to compare two highly similar
-proteins with respect to their electrostatic properties. This comparison is 
-done calculating the difference in electrostatic potential at atomic level 
-of both proteins.
+### What is VisualDEP?:
+VisualDEP It's a tool that compares two highly similar structures with
+respect to their electrostatic properties. This comparison is done calculating
+the difference in electrostatic potential at atomic level between both 
+structures, also calculates a normalized difference at atomic level, and an 
+average normalized difference (AND) global value.
 
-* How to install?
-
-First edit the configuration files:
-
-src/config.py:          Edit with proper information of where the system
-                        will it be, database and other system information.
-
-configs/visualdepd:     /etc/rc.d/ script to have visualdep as a service
-
-visualde.ngingx.conf:   Ngninx web server configuration
+### How to use it:
+    username@hostname my/path/to/visualdep $ python visualdep.py structure1.pdb structure2.pdb
 
 
-Then copy the configuration where have to be.
+### AUTHORS
+José Martínez-Oyanedel <jmartine@udec.cl>
+Natalia Jaña-Perez <njana@udec.cl>
+Carlos Ríos-Vera. <crosvera@gmail.com>
 
-+ Compile pqr2csv
-cd src/scripts
-gcc pqr2csv.c -o pqr2csv
-chmod +x pqr2csv
+Copyright (C) 2009-2014 Laboratorio de Biofísica Molecular - Universidad de Concepción. Chile.
