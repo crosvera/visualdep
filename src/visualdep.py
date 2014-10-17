@@ -47,7 +47,7 @@ MULTIVALUE_BIN_PATH = "/home/crosvera/shared/share/apbs/tools/bin/multivalue"
 
 
 def alignment_pymol(pdb1, pdb2, save_path="./"):
-    os.environ['PYMOL_DATA'] = "/usr/share/pymol/"
+    #os.environ['PYMOL_DATA'] = "/usr/share/pymol/"
     pymol.cmd.delete("all")
 
     p1_name = pdb1.split(os.sep)[-1][:-4]
@@ -55,7 +55,8 @@ def alignment_pymol(pdb1, pdb2, save_path="./"):
 
     pymol.cmd.load(pdb1, p1_name)
     pymol.cmd.load(pdb2, p2_name)
-    algn = pymol.cmd.super(p1_name+" & alt A+''", p2_name+" & alt B+''")
+    algn = pymol.cmd.super(p1_name, p2_name)
+    #algn = pymol.cmd.super(p1_name+" & alt A+''", p2_name+" & alt B+''")
     #algn = pymol.cmd.do("super %s & alt A+'', %s & alt B+''" %(p1_name, p2_name))
     #algn = pymol.cmd.do("super %s , %s" %(p1_name, p2_name))
     #algn = pymol.cmd.align(p1_name, p2_name)
