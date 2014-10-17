@@ -43,7 +43,7 @@ import dxparser
 # Config vars
 VISUALDEP_CONFIG = get_config()
 
-def get_config:
+def get_config():
     conf = ConfigParser.ConfigParser()
     conf.read(os.path.expanduser("~")+"/.visualdep.conf")
     config = {}
