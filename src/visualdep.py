@@ -29,6 +29,7 @@ __main__.pymol_argv = ["pymol", "-qc"] # Quiet and no GUI
 
 import sys, time, os, re
 from subprocess import check_call
+import ConfigParser
 
 import pymol
 pymol.finish_launching()
@@ -44,6 +45,26 @@ PDB2PQR_PATH = "/home/crosvera/shared/pdb2pqr"
 PSIZE_PATH = os.path.join(PDB2PQR_PATH, "src")
 APBS_BIN_PATH = "/home/crosvera/shared/bin/apbs"
 MULTIVALUE_BIN_PATH = "/home/crosvera/shared/share/apbs/tools/bin/multivalue"
+
+VISUALDEP_CONFIG = get_config()
+
+def get_config:
+    conf = ConfigParser.ConfigParser()
+    conf.read(os.path.expanduser("~")+"/.visualdep.conf")
+    config = {}
+    config["pdb2pqr_path"] = conf.get("VisualDEP", "pdb2pqr_path")
+    config["psize_path"] = os.path.join(config["pdb2pqr_path"], "src")
+    config["apbs_path"] = conf.get("VisualDEP", "apbs_path")
+    config["apbs_bin_path"] = os.path.join(config["apbs_path"], 
+                                           conf.get("VisualDEP", "apbs_bin"))
+    config["multivalue_path"] = conf.get("VisualDEP", "multivalue_path")
+    config["multivalue_bin_path"] = os.path.join(conf.get["VisualDEP", "multivalue_path"],
+                                                 conf.get["VisualDEP", "multivalue_bin"])
+    config["rmsd_constraint"] = conf.getboolean("VisualDEP", "rmsd_constraint")
+    config["rmsd_limit"] = conf.getfloat("VisualDEP", "rmsd_limit")
+
+    return config
+        
 
 
 def alignment_pymol(pdb1, pdb2, save_path="./"):
