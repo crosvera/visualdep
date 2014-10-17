@@ -41,11 +41,6 @@ import dxparser
 
 
 # Config vars
-PDB2PQR_PATH = "/home/crosvera/shared/pdb2pqr"
-PSIZE_PATH = os.path.join(PDB2PQR_PATH, "src")
-APBS_BIN_PATH = "/home/crosvera/shared/bin/apbs"
-MULTIVALUE_BIN_PATH = "/home/crosvera/shared/share/apbs/tools/bin/multivalue"
-
 VISUALDEP_CONFIG = get_config()
 
 def get_config:
@@ -98,7 +93,7 @@ def alignment_pymol(pdb1, pdb2, save_path="./"):
 
 
 def get_pqr(pdb, sdie="78.5400", save_path="./"):
-    sys.path.insert(0, PDB2PQR_PATH)
+    sys.path.insert(0, VISUALDEP_CONFIG["pdb2pqr_path"])
     import pdb2pqr
 
     pqr = os.path.join(save_path, pdb.split(os.sep)[-1][:-4] + ".pqr")
@@ -113,7 +108,7 @@ def get_pqr(pdb, sdie="78.5400", save_path="./"):
 
 
 def set_grid(pqr1, pqr2, sdie=78.5400, save_path="./"):
-    sys.path.insert(0, PSIZE_PATH)
+    sys.path.insert(0, VISUALDEP_CONFIG["psize_path"])
     import psize
     
     s1 = psize.Psize()
@@ -188,7 +183,7 @@ quit
 
 
 def apbs(infile):
-    cmd = "%s %s" % (APBS_BIN_PATH, infile)
+    cmd = "%s %s" % (VISUALDEP_CONFIG["apbs_bin_path"], infile)
     check_call(cmd, shell=True)
 
 
@@ -300,7 +295,7 @@ def pqr2csv(pqr, save_path="./"):
 
 def multivalue(csv, dx, save_path="./"):
     phi = os.path.join(save_path, dx.split(os.sep)[-1][:-3]+".phi")
-    cmd = "%s %s %s %s" % (MULTIVALUE_BIN_PATH, csv, dx, phi)
+    cmd = "%s %s %s %s" % (VISUALDEP_CONFIG["multivalue_bin_path"], csv, dx, phi)
     check_call(cmd, shell=True)
 
     return phi
@@ -366,10 +361,11 @@ if __name__ == "__main__":
     pdb2 = sys.argv[2]
 
     p1, p2, rmsd = alignment_pymol(pdb1, pdb2)
-    
-    #if rmsd > 3.5:
-    #    print "RMSD:", rmsd, "too high, aborting..."
-    #    exit(1)
+   
+
+    if VISUALDEP_CONFIG["rmsd_constraint"] and rmsd <= VISUALDEP_CONFIG["rmsd_limit"]:
+        print "RMSD:", rmsd, "too high, aborting..."
+        exit(1)
 
     pqr1 = get_pqr(p1)
     pqr2 = get_pqr(p2)
@@ -390,4 +386,6 @@ if __name__ == "__main__":
     and_pdb = phi2pdb(p1, and_phi)
 
     #print p1, p2, rmsd, and_value
-    print rmsd, and_value
+    print "VisualDEP Summary:"
+    print "RMSD:", rmsd
+    print "AND value:", and_value
