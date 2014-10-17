@@ -40,8 +40,6 @@ import pqrparser
 import dxparser
 
 
-# Config vars
-VISUALDEP_CONFIG = get_config()
 
 def get_config():
     conf = ConfigParser.ConfigParser()
@@ -60,6 +58,8 @@ def get_config():
 
     return config
         
+# Config vars
+VISUALDEP_CONFIG = get_config()
 
 
 def alignment_pymol(pdb1, pdb2, save_path="./"):
