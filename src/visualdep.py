@@ -42,8 +42,12 @@ import dxparser
 
 
 def get_config():
+    confile = os.path.join(os.path.expanduser("~"),".visualdep.conf")
+    if not os.path.isfile(confile):
+        raise IOError("VisualDEP config file not found.")
+
     conf = ConfigParser.ConfigParser()
-    conf.read(os.path.expanduser("~")+"/.visualdep.conf")
+    conf.read(confile)
     config = {}
     config["pdb2pqr_path"] = conf.get("VisualDEP", "pdb2pqr_path")
     config["psize_path"] = os.path.join(config["pdb2pqr_path"], "src")
@@ -51,15 +55,13 @@ def get_config():
     config["apbs_bin_path"] = os.path.join(config["apbs_path"], 
                                            conf.get("VisualDEP", "apbs_bin"))
     config["multivalue_path"] = conf.get("VisualDEP", "multivalue_path")
-    config["multivalue_bin_path"] = os.path.join(conf.get["VisualDEP", "multivalue_path"],
-                                                 conf.get["VisualDEP", "multivalue_bin"])
+    config["multivalue_bin_path"] = os.path.join(conf.get("VisualDEP", "multivalue_path"),
+                                                 conf.get("VisualDEP", "multivalue_bin"))
     config["rmsd_constraint"] = conf.getboolean("VisualDEP", "rmsd_constraint")
     config["rmsd_limit"] = conf.getfloat("VisualDEP", "rmsd_limit")
 
     return config
         
-# Config vars
-VISUALDEP_CONFIG = get_config()
 
 
 def alignment_pymol(pdb1, pdb2, save_path="./"):
@@ -357,6 +359,9 @@ def del_hetatoms(pdb, save_path="./"):
 
 
 if __name__ == "__main__":
+    # Config vars
+    VISUALDEP_CONFIG = get_config()
+    
     pdb1 = sys.argv[1]
     pdb2 = sys.argv[2]
 
