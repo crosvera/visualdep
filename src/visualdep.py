@@ -92,6 +92,29 @@ def alignment_pymol(pdb1, pdb2, save_path="./"):
     return static_pdb, mobile_pdb, algn[0]
 
 
+def alignment_pymol2(pdb1, pdb2, save_path='./'):
+    pymol.cmd.delete("all")
+    p1_name = pdb1.split(os.sep)[-1][:-4]
+    p2_name = pdb2.split(os.sep)[-1][:-4]
+
+    pymol.cmd.load(pdb1, p1_name)
+    pymol.cmd.load(pdb2, p2_name)
+    algn = pymol.cmd.super(p1_name, p2_name)
+
+    time.sleep(1)
+
+    #print "align results:", algn
+    static_pdb = os.path.join(save_path, p1_name+".pdb")
+    mobile_pdb = os.path.join(save_path, p2_name+".pdb")
+    pymol.cmd.save(static_pdb, p1_name, 0, "pdb")
+    pymol.cmd.save(mobile_pdb, p2_name, 0, "pdb")
+    
+    pymol.cmd.sync(10)
+    #pymol.cmd.quit()
+
+    return static_pdb, mobile_pdb, algn[0]
+
+
 
 
 def get_pqr(pdb, sdie="78.5400", save_path="./"):
